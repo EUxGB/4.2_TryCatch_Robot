@@ -1,4 +1,4 @@
-public class Robot implements RobotConnection, RobotConnectionManager  {
+public class Robot implements RobotConnection, RobotConnectionManager {
     int x;
     int y;
 
@@ -7,8 +7,41 @@ public class Robot implements RobotConnection, RobotConnectionManager  {
         this.y = y;
     }
 
+
+    public static void moveRobot(RobotConnectionManager robotConnectionManager, int toX, int toY) {
+
+        int ping = 1;
+        RobotConnection connection = null;
+
+        while (ping <= 3) {
+
+            try {
+                connection = robotConnectionManager.getConnection();
+                connection.moveRobotTo(toX, toY);
+                break;
+
+            } catch (RobotConnectionException err) {
+                if (ping == 3) {
+                    throw new RobotConnectionException("ERROR 404", err);
+                }
+                ping++;
+
+            } finally {
+
+                try {
+                    connection.close();
+                } catch (Throwable err) {   }
+
+            }
+        }
+
+    }
+
+
     @Override
     public void moveRobotTo(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -19,42 +52,6 @@ public class Robot implements RobotConnection, RobotConnectionManager  {
     public RobotConnection getConnection() {
         return null;
     }
-    public static void moveRobot(RobotConnectionManager robotConnectionManager, int toX, int toY) {
-        this.toX;
-        try {
-
-
-                RobotConnection.moveRobotTo(toX, toY);
-                RobotConnection.close();
-
-
-            }
-
-        } catch (RobotConnectionException e1) {
-        RobotConnection.moveRobotTo(this.toX, x);
-        RobotConnection.close();
-
-            // your implementation here
-        }
-        catch (RobotConnectionException e2) {
-        RobotConnection.moveRobotTo(this.toX, x);
-        RobotConnection.close();
-
-        throw new RobotConnectionException("No connected");
-        // your implementation here
-    }
-
-        catch (Exception e3){
-            throw new RobotConnectionException("ERROR 404",e3);
-
-        }
-
-
-        finally {
-            RobotConnection.close();
-        }
-
-    }
-
-
 }
+
+

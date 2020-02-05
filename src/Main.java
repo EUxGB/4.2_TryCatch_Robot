@@ -2,12 +2,25 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Robot robot1 = new Robot(1, 20);
-        RobotConnectionManager connect = null;
-        robot1.moveRobot(null,10,10);
+        Robot Robert = new Robot(10,10);
+
+        RobotConnectionManager connect = null ; //
+        Robert.moveRobot(connect,15,15);
+
+        // some code
+
 
 
     }
 
 
+
 }
+
+
+
+
+
+
+
+
